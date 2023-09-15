@@ -1,3 +1,5 @@
+#[macro_use]
+
 extern crate crypto;
 use crypto::digest::Digest;
 use crypto::sha1::Sha1;
@@ -123,7 +125,7 @@ pub fn write_ws(stream: &mut TcpStream, message: String) -> Result<usize, std::i
 pub fn send_ws_stream(stream: &mut TcpStream, message: String, message_type: &str) -> Result<usize, std::io::Error> {
     return write_ws(stream, format!("{}|{}",message_type,message));
 }
-#[macro_export]
+
 pub macro_rules! handle_websocket {
     ($stream:expr,$message:expr,$begins_with:expr,$anonymous_func:tt) => {
         if $message.starts_with($begins_with) {
