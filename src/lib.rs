@@ -123,11 +123,11 @@ pub fn write_ws(stream: &mut TcpStream, message: String) -> Result<usize, std::i
 pub fn send_ws_stream(stream: &mut TcpStream, message: String, message_type: &str) -> Result<usize, std::io::Error> {
     return write_ws(stream, format!("{}|{}",message_type,message));
 }
-macro_rules! handle_websocket {
+#[macro_export]
+pub macro_rules! handle_websocket {
     ($stream:expr,$message:expr,$begins_with:expr,$anonymous_func:tt) => {
         if $message.starts_with($begins_with) {
             write_ws($stream,$anonymous_func());
         }
     };
 }
-pub(crate) use handle_websocket;
